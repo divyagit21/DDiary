@@ -14,10 +14,7 @@ mongoose.connect(process.env.MONGO_CONN)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-app.use(cors({
-  origin: 'http://localhost:3000', 
-  credentials: true, 
-}));
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser())
 
