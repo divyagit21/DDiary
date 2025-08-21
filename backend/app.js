@@ -23,4 +23,6 @@ app.use('/api/user', userAuth);
 app.use('/api/journal',journal);
 app.use('/api/tasks',task);
 
-app.listen(5000, () => console.log('node server running on port 5000'));
+app.get('/', (req, res) => {
+  res.send('Backend API is running');
+});
