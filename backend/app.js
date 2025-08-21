@@ -23,6 +23,6 @@ app.use('/api/user', userAuth);
 app.use('/api/journal',journal);
 app.use('/api/tasks',task);
 
-app.get('/', (req, res) => {
+app.use('/', (req, res) => {
   res.send('Backend API is running');
 });
