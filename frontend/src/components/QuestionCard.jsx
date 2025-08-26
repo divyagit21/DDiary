@@ -9,7 +9,6 @@ const QuestionCard = ({ question, value, onChange }) => {
             onChange(num);
         }
     };
-    console.log("render ");
     return (
         <div className="question-card">
             <p className="question-text">{question}</p>
