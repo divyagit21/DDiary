@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGO_CONN)
   .catch((err) => console.error('MongoDB connection error:', err));
 
 app.use(cors({
-  origin: 'https://d-diary-fcna.vercel.app/', 
+  origin: 'https://d-diary-fcna.vercel.app', 
   credentials: true, 
 }));
 app.use(express.json());
