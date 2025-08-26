@@ -1,4 +1,4 @@
-# DDiary - Journal & Mood Tracker App
+# DDiary - Journal & Mood Tracker Website
 
 This is a full-stack journaling and mood tracking app built with Node.js, Express, MongoDB, and React. It features encrypted journals, user authentication, and analysis.
 
