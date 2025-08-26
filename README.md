@@ -49,7 +49,7 @@ yarn install
 
 Create a .env file with the following required environment variables:
 - PORT=5000
-- CLIENT_ORIGIN=http://localhost:3000 -- frontend running
+- CLIENT_ORIGIN=http://localhost:3000 
 - MONGO_CONN=your_mongodb_connection_string
 - SECRET_KEY=your_jwt_secret_key
 - ENCRYPTION_SECRET=your_encryption_secret_key
