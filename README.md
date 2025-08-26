@@ -33,14 +33,20 @@ git clone https://github.com/yourusername/ddiary.git
 cd ddiary
 ```
 
+---
+
 2. Install dependencies
+
 ```bash
 npm install
 # or
 yarn install
 ```
 
+---
+
 3. Create .env file in the root directory
+
 Create a .env file with the following required environment variables:
 PORT=5000
 CLIENT_ORIGIN=http://localhost:3000 -- frontend running
@@ -49,18 +55,28 @@ SECRET_KEY=your_jwt_secret_key
 ENCRYPTION_SECRET=your_encryption_secret_key
 ENCRYPTION_SALT=your_encryption_salt
 
+---
+
 4. Run MongoDB
+
 Make sure your MongoDB server is running locally or your cloud instance is accessible.
 
+---
+
 5. Start the backend server
+
 ```bash
 npm run server
 # or
 node app.js
 ```
+
 This should start your backend API at http://localhost:5000 (or the port you set).
 
+---
+
 6. Start the React frontend
+
 In another terminal window, run:
 ```bash
 npm start
@@ -68,6 +84,8 @@ npm start
 yarn start
 ```
 This will start your React development server at http://localhost:3000.
+
+---
 
 Testing the app
 Register a new user via the /signin route.
