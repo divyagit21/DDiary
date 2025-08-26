@@ -4,6 +4,7 @@ import { useAuth } from "./AuthContext";
 import MoodTrackerCard from "./MoodTrackerCard";
 import { useNavigate } from "react-router-dom";
 import './TrackerHistory.css';
+import API from '../api'
 
 const CustomAlert = lazy(() => import('./CustomAlert'));
 const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
@@ -25,7 +26,7 @@ const TrackerHistory = ({ onEditMood }) => {
 
         const fetchMoods = async () => {
             try {
-                const response = await axios.get('/api/moodTracker/getAllMoods', {
+                const response = await API.get('/api/moodTracker/getAllMoods', {
                     withCredentials: true,
                 });
                 setMoods(response.data.moods || []);
@@ -46,7 +47,7 @@ const TrackerHistory = ({ onEditMood }) => {
 
     const confirmDelete = async () => {
         try {
-            const deleted = await axios.delete(
+            const deleted = await API.delete(
                 `/api/moodTracker/deleteMood/${deleteId}`,
                 { withCredentials: true }
             );
@@ -55,13 +56,13 @@ const TrackerHistory = ({ onEditMood }) => {
             setMsg("Mood entry deleted successfully!");
 
             const deletedDate = deleted.data.deletedDate;
-            const response = await axios.get("/api/journal/checkToday", {
+            const response = await API.get("/api/journal/checkToday", {
                 params: { date: deletedDate },
                 withCredentials: true,
             });
 
             if (response.data.exists && response.data.journal) {
-                await axios.put(
+                await API.put(
                     `/api/journal/analyze/${response.data.journal._id}`,
                     { analyzed: false },
                     { withCredentials: true }
@@ -80,7 +81,7 @@ const TrackerHistory = ({ onEditMood }) => {
     const handleMoodUpdated = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('/api/moodTracker/getAllMoods', {
+            const response = await API.get('/api/moodTracker/getAllMoods', {
                 withCredentials: true,
             });
             setMoods(response.data.moods || []);

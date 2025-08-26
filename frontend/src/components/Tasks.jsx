@@ -4,6 +4,8 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from './AuthContext';
 import './Tasks.css'
+import API from '../api'
+
 const CustomAlert = lazy(() => import('./CustomAlert'));
 const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
 
@@ -19,7 +21,7 @@ const Tasks = () => {
   useEffect(() => {
     const storedTasks = async () => {
       try {
-        const getTask = await axios.get(`api/tasks/getalltasks/${user.id}`, {
+        const getTask = await API.get(`api/tasks/getalltasks/${user.id}`, {
           withCredentials: true
         })
         setTasks(getTask.data);
@@ -41,7 +43,7 @@ const Tasks = () => {
 
   async function confirmDelete() {
     try {
-      const deleteTask = await axios.delete(`/api/tasks/deletetask/${deleteId}`, {
+      const deleteTask = await API.delete(`/api/tasks/deletetask/${deleteId}`, {
         withCredentials: true
       })
       setTasks(prev => {
@@ -71,7 +73,7 @@ const Tasks = () => {
       title: taskName
     }
     try {
-      const res = await axios.post('/api/tasks/addtask', newtask, {
+      const res = await API.post('/api/tasks/addtask', newtask, {
         withCredentials: true
       })
       setTasks(prev => {

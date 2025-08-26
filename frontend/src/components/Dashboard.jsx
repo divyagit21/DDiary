@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "./AuthContext";
 import './Dashboard.css'
+import API from '../api'
+
 const CustomAlert = lazy(() => import('./CustomAlert'));
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -19,7 +21,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchMoodResponses = async () => {
       try {
-        const res = await axios.get(`/api/moodTracker/getAllMoods`, { withCredentials: true });
+        const res = await API.get(`/api/moodTracker/getAllMoods`);
         const moods = res.data.moods || [];
 
         if (moods.length === 0) {

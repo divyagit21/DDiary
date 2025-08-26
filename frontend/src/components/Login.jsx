@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import './Login.css'
+import API from '../api'
+
 const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const Login = () => {
@@ -23,7 +25,7 @@ const Login = () => {
                 return;
             }
             setMsg('');
-            const res = await axios.post('/api/user/login', { email, password }, { withCredentials: true });
+            const res = await API.post('/api/user/login', { email, password });
             await login();
             navigate('/home');
         } catch (error) {

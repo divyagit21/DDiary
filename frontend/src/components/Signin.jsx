@@ -2,6 +2,8 @@ import React, { lazy,Suspense, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Signin.css'
+import API from '../api'
+
 const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const Signin = () => {
@@ -43,7 +45,7 @@ const Signin = () => {
     }
 
     try {
-      await axios.post('/api/user/signin', { name, email, password });
+      await API.post('/api/user/signin', { name, email, password });
       navigate('/login');
     } catch (error) {
       if (error.response) {

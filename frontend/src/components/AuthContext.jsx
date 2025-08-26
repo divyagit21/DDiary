@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import API from '../api'
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
                 return Promise.reject(error);
             }
         );
-        return () => axios.interceptors.response.eject(interceptor);
+        return () => API.interceptors.response.eject(interceptor);
     }, [auth.isAuthenticated, navigate]);
 
     useEffect(() => {
@@ -31,9 +31,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async () => {
         try {
-            const res = await axios.get('/api/user/profile', {
-                withCredentials: true
-            });
+            const res = await API.get('/api/user/profile');
             setAuth({
                 isAuthenticated: true,
                 user: res.data.user
@@ -49,9 +47,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
     const logout = async () => {
-        await axios.post('/api/user/logout', {}, {
-            withCredentials: true
-        });
+        await API.post('/api/user/logout', {});
         setAuth({ isAuthenticated: false, user: null });
     };
 

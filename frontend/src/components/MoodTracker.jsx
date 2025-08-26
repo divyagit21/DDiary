@@ -3,6 +3,8 @@ import QuestionCard from "./QuestionCard";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import API from '../api'
+
 const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const formatDate = (rawDate) => {
@@ -60,9 +62,7 @@ const MoodTracker = ({ editMoodId, onSaveComplete }) => {
     const checkTodayMood = async (dateToCheck) => {
         try {
             const encodedDate = encodeURIComponent(dateToCheck);
-            const res = await axios.get(`/api/moodTracker/getMoodByDate/${encodedDate}`, {
-                withCredentials: true
-            });
+            const res = await API.get(`/api/moodTracker/getMoodByDate/${encodedDate}`);
 
             if (res.status === 200 && res.data.mood) {
                 setMsg("A mood entry already exists for today.To edit, use the history page.");
@@ -82,9 +82,7 @@ const MoodTracker = ({ editMoodId, onSaveComplete }) => {
         const fetchMood = async () => {
             setLoading(true);
             try {
-                const res = await axios.get(`/api/moodTracker/getMoodById/${editMoodId}`, {
-                    withCredentials: true
-                });
+                const res = await API.get(`/api/moodTracker/getMoodById/${editMoodId}`);
                 if (res.data.mood) {
                     setResponses(res.data.mood.responses);
                     setDate(res.data.mood.date); 
@@ -121,32 +119,27 @@ const MoodTracker = ({ editMoodId, onSaveComplete }) => {
             }
 
             if (editMoodId) {
-                await axios.put(
+                await API.put(
                     `/api/moodTracker/updateMood/${editMoodId}`,
-                    { responses, date: formattedDate },
-                    { withCredentials: true }
+                    { responses, date: formattedDate }
                 );
                 setMsg("Mood updated successfully!");
             } else {
-                await axios.post(
+                await API.post(
                     `/api/moodTracker/addMood`,
-                    { userId: user.id, responses, date: formattedDate },
-                    { withCredentials: true }
+                    { userId: user.id, responses, date: formattedDate }
                 );
 
                 try {
-                    const journal = await axios.get('/api/journal/checkToday', {
+                    const journal = await API.get('/api/journal/checkToday', {
                         params: { date: formattedDate },
-                        withCredentials: true
                     });
 
                     if (journal.data.journal?._id) {
-                        await axios.put(`/api/journal/analyze/${journal.data.journal._id}`, { analyzed: true }, {
-                            withCredentials: true
-                        });
+                        await API.put(`/api/journal/analyze/${journal.data.journal._id}`, { analyzed: true });
                     }
                 } catch (journalErr) {
-                    console.log("No journal to analyze for this date.");
+                    setMsg("No journal to analyze for this date.");
                 }
 
                 setMsg("Mood saved successfully!");
@@ -156,7 +149,6 @@ const MoodTracker = ({ editMoodId, onSaveComplete }) => {
             navigate('/trackerHistory')
         } catch (err) {
             setMsg("Failed to add.Try to check if date already exists.");
-            console.error(err);
         }
         finally {
             setSaving(false);

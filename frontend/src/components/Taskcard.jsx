@@ -1,6 +1,8 @@
 import React, { lazy,Suspense, useState, useEffect } from 'react';
 import axios from 'axios';
 import './TaskCard.css'
+import API from '../api'
+
 const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const Taskcard = ({ task, handleDeleteTask }) => {
@@ -14,7 +16,7 @@ const Taskcard = ({ task, handleDeleteTask }) => {
           subtask: sub.subtask.trim(),
           completed: sub.completed
         }));
-      await axios.put(`/api/tasks/updatetask/${task._id}`, {
+      await API.put(`/api/tasks/updatetask/${task._id}`, {
         tasksList: validList
       }, {
         withCredentials: true

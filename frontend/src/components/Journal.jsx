@@ -2,6 +2,8 @@ import { lazy,Suspense, useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './Journal.css'
+import API from '../api'
+
 const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const Journal = ({ editEntryId }) => {
@@ -25,9 +27,7 @@ const Journal = ({ editEntryId }) => {
 
     async function fetchEntry() {
       try {
-        const response = await axios.get(`/api/journal/getJournal/${editEntryId}`, {
-          withCredentials: true,
-        });
+        const response = await API.get(`/api/journal/getJournal/${editEntryId}`);
         const data = response.data.journal;
         setTitle(data.title);
         setDate(data.date);
@@ -73,9 +73,7 @@ const Journal = ({ editEntryId }) => {
   const checkMoodTrackerExists = async (dateToCheck) => {
     try {
       const encodedDate = encodeURIComponent(dateToCheck);
-      const res = await axios.get(`/api/moodTracker/getMoodByDate/${encodedDate}`, {
-        withCredentials: true,
-      });
+      const res = await API.get(`/api/moodTracker/getMoodByDate/${encodedDate}`);
       if (res.status === 200 && res.data.mood) {
         setAnalyzed(res.data.exists ?? true); 
       } else {
@@ -88,9 +86,8 @@ const Journal = ({ editEntryId }) => {
 
   const checkIfJournalExists = async (dateToCheck) => {
     try {
-      const response = await axios.get("/api/journal/checkToday", {
+      const response = await API.get("/api/journal/checkToday", {
         params: { date: dateToCheck },
-        withCredentials: true,
       });
       return response.data.exists || false;
     } catch {
@@ -117,10 +114,10 @@ const Journal = ({ editEntryId }) => {
     }
 
     try {
-      await axios.post(
+      await API.post(
         "/api/journal/addJournal",
         { title, date, journalNote: entry, analyzed },
-        { withCredentials: true }
+        
       );
       navigate("/history");
     } catch {
@@ -137,10 +134,9 @@ const Journal = ({ editEntryId }) => {
     if (!editEntryId) return; 
 
     try {
-      await axios.put(
+      await API.put(
         `/api/journal/updateJournal/${editEntryId}`,
         { title, date, journalNote: entry, analyzed },
-        { withCredentials: true }
       );
       showAlert("Journal entry updated successfully.");
       navigate("/history");

@@ -1,6 +1,7 @@
 import React, { lazy,Suspense, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import './JournalCard.css'
+
 const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const JournalCard = ({ id, title, date, entry, analyzed, onEdit, onDelete }) => {

@@ -4,6 +4,8 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from "./AuthContext";
 import './History.css'
+import API from '../api'
+
 const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
 const CustomAlert = lazy(() => import('./CustomAlert'));
 
@@ -20,9 +22,8 @@ const History = ({ onEditEntry }) => {
   useEffect(() => {
     const getJournals = async () => {
       try {
-        const response = await axios.get(
-          `/api/journal/getAllJournals/${user.id}`,
-          { withCredentials: true }
+        const response = await API.get(
+          `/api/journal/getAllJournals/${user.id}`
         );
         setEntries(response.data.journals);
       } catch (error) {
@@ -41,10 +42,8 @@ const History = ({ onEditEntry }) => {
 
   const confirmDelete = async () => {
     try {
-      const deleteAnalysis = await axios.delete(`/api/journal/deleteJournal/${deleteId}`,
-        {
-          withCredentials: true
-        })
+      const deleteAnalysis = await API.delete(`/api/journal/deleteJournal/${deleteId}`,
+        )
       setEntries(prevEntries => prevEntries.filter(entry => entry._id !== deleteId));
       setMsg("Journal entry deleted successfully!");
     }

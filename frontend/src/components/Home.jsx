@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from './AuthContext';
 import './Home.css'
+
 const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
 const Home = () => {
     const navigate = useNavigate();
