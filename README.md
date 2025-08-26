@@ -35,7 +35,7 @@ cd ddiary
 
 ---
 
-2. Install dependencies
+### 2. Install dependencies
 
 ```bash
 npm install
@@ -45,7 +45,7 @@ yarn install
 
 ---
 
-3. Create .env file in the root directory
+### 3. Create .env file in the root directory
 
 Create a .env file with the following required environment variables:
 - PORT=5000
@@ -57,13 +57,13 @@ Create a .env file with the following required environment variables:
 
 ---
 
-4. Run MongoDB
+### 4. Run MongoDB
 
 Make sure your MongoDB server is running locally or your cloud instance is accessible.
 
 ---
 
-5. Start the backend server
+### 5. Start the backend server
 
 ```bash
 npm run server
@@ -75,7 +75,7 @@ This should start your backend API at http://localhost:5000 (or the port you set
 
 ---
 
-6. Start the React frontend
+### 6. Start the React frontend
 
 In another terminal window, run:
 ```bash
