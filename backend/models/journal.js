@@ -12,6 +12,7 @@ const journal = new mongoose.Schema({
         type: String,
         required: true
     },
+    iv: { type: String, required: true },
     analysis: { type: String },  
     analyzed: { type: Boolean, default: false },
     user: {

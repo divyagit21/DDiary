@@ -1,6 +1,8 @@
 const Journal = require('../models/journal');
 const User = require('../models/user');
 const mongoose = require('mongoose');
+const { encrypt } = require('../utils/encryption');
+const { decrypt } = require('../utils/encryption');
 
 const updateAnalysis = async (req, res) => {
   try {
@@ -77,8 +79,8 @@ const AddJournal = async (req, res) => {
     if (!formattedDate|| !journalData.journalNote) {
       return res.status(400).json({ message: "date, and journal note are required." });
     }
-    const newjournal = new Journal({ title: journalData.title, date: formattedDate, journalNote: journalData.journalNote, user: req.user._id, analyzed: journalData.analyzed, analysis: journalData.analysis })
-    console.log(newjournal);
+    const encrypted = encrypt(journalData.journalNote);
+    const newjournal = new Journal({ title: journalData.title, date: formattedDate, journalNote: encrypted.content,iv:encrypted.iv, user: req.user._id, analyzed: journalData.analyzed, analysis: journalData.analysis })
     const addedJournal = await newjournal.save();
     await User.findByIdAndUpdate(req.user._id, {
       $push: { journalList: addedJournal._id }
@@ -148,7 +150,12 @@ const GetJournal = async (req, res) => {
     if (!journal) {
       return res.status(404).json({ message: "Journal not found or access denied." });
     }
-    return res.status(200).json({ journal });
+    const decryptedNote = decrypt({ content: journal.journalNote, iv: journal.iv });
+    const response = {
+      ...journal.toObject(),
+      journalNote: decryptedNote 
+    };
+    return res.status(200).json({ journal:response });
   } catch (err) {
     return res.status(500).json({ message: "Internal server error" });
   }
@@ -159,7 +166,11 @@ const GetAllJournals = async (req, res) => {
   try {
     const { id } = req.params;
     const journals = await Journal.find({ user: id }).sort({ date: -1 });
-    res.status(200).json({ journals });
+    const decrypted = journals.map(j => {
+      const note = decrypt({ content: j.journalNote, iv: j.iv });
+      return { ...j.toObject(), journalNote: note };
+    });
+    res.status(200).json({ journals:decrypted });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
