@@ -48,12 +48,12 @@ yarn install
 3. Create .env file in the root directory
 
 Create a .env file with the following required environment variables:
-PORT=5000
-CLIENT_ORIGIN=http://localhost:3000 -- frontend running
-MONGO_CONN=your_mongodb_connection_string
-SECRET_KEY=your_jwt_secret_key
-ENCRYPTION_SECRET=your_encryption_secret_key
-ENCRYPTION_SALT=your_encryption_salt
+- PORT=5000
+- CLIENT_ORIGIN=http://localhost:3000 -- frontend running
+- MONGO_CONN=your_mongodb_connection_string
+- SECRET_KEY=your_jwt_secret_key
+- ENCRYPTION_SECRET=your_encryption_secret_key
+- ENCRYPTION_SALT=your_encryption_salt
 
 ---
 
@@ -88,7 +88,7 @@ This will start your React development server at http://localhost:3000.
 ---
 
 Testing the app
-Register a new user via the /signin route.
-Login via the /login route.
-Add, update, delete, and view journals.
-Logout and test the authentication flow.
+- Register a new user via the /signin route.
+- Login via the /login route.
+- Add, update, delete, and view journals.
+- Logout and test the authentication flow.
