@@ -1,8 +1,9 @@
 const crypto = require('crypto');
 
 const algorithm = 'aes-256-cbc';
-const secret = process.env.ENCRYPTION_SECRET; // Add this to your `.env`
-const key = crypto.scryptSync(secret, 'salt', 32);
+const secret = process.env.ENCRYPTION_SECRET; 
+const SALT = process.env.ENCRYPTION_SALT
+const key = crypto.scryptSync(secret, SALT, 32);
 
 function encrypt(text) {
   const iv = crypto.randomBytes(16);

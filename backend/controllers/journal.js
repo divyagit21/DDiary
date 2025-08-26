@@ -6,7 +6,7 @@ const { decrypt } = require('../utils/encryption');
 
 const updateAnalysis = async (req, res) => {
   try {
-    const {analyzed} = req.body
+    const { analyzed } = req.body
     const journalId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(journalId)) {
       return res.status(400).json({ message: 'Invalid journal ID.' });
@@ -18,8 +18,8 @@ const updateAnalysis = async (req, res) => {
     if (journal.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Unauthorized access.' });
     }
-    const updatedAnalyze=analyzed 
-    console.log(updatedAnalyze+ "updated got")
+    const updatedAnalyze = analyzed
+    console.log(updatedAnalyze + "updated got")
     const updatedJournal = await Journal.findByIdAndUpdate(
       journalId,
       {
@@ -54,7 +54,7 @@ const checkToday = async (req, res) => {
     }
 
     const existing = await Journal.findOne({ user: req.user._id, date: formattedDate });
-    console.log(existing+ " existing");
+    console.log(existing + " existing");
     if (existing) {
       return res.status(200).json({ exists: true, journal: existing });
     } else {
@@ -72,15 +72,15 @@ const AddJournal = async (req, res) => {
   try {
     const journalData = req.body;
     const JournalDate = new Date(journalData.date);
-    const month = String( JournalDate.getMonth() + 1).padStart(2, '0');
-    const day = String( JournalDate.getDate()).padStart(2, '0');
-    const year =  JournalDate.getFullYear();
+    const month = String(JournalDate.getMonth() + 1).padStart(2, '0');
+    const day = String(JournalDate.getDate()).padStart(2, '0');
+    const year = JournalDate.getFullYear();
     const formattedDate = `${month}/${day}/${year}`;
-    if (!formattedDate|| !journalData.journalNote) {
+    if (!formattedDate || !journalData.journalNote) {
       return res.status(400).json({ message: "date, and journal note are required." });
     }
     const encrypted = encrypt(journalData.journalNote);
-    const newjournal = new Journal({ title: journalData.title, date: formattedDate, journalNote: encrypted.content,iv:encrypted.iv, user: req.user._id, analyzed: journalData.analyzed, analysis: journalData.analysis })
+    const newjournal = new Journal({ title: journalData.title, date: formattedDate, journalNote: encrypted.content, iv: encrypted.iv, user: req.user._id, analyzed: journalData.analyzed, analysis: journalData.analysis })
     const addedJournal = await newjournal.save();
     await User.findByIdAndUpdate(req.user._id, {
       $push: { journalList: addedJournal._id }
@@ -134,7 +134,12 @@ const UpdateJournal = async (req, res) => {
     }
 
     if (title !== undefined) journal.title = title;
-    if (journalNote !== undefined) journal.journalNote = journalNote;
+    if (journalNote !== undefined) {
+      const encrypted = encrypt(journalNote);
+      journal.journalNote = encrypted.content;
+      journal.iv = encrypted.iv;
+    }
+
     if (date !== undefined) journal.date = date;
     await journal.save();
     return res.status(200).json({ message: "Journal updated successfully", journal });
@@ -153,9 +158,9 @@ const GetJournal = async (req, res) => {
     const decryptedNote = decrypt({ content: journal.journalNote, iv: journal.iv });
     const response = {
       ...journal.toObject(),
-      journalNote: decryptedNote 
+      journalNote: decryptedNote
     };
-    return res.status(200).json({ journal:response });
+    return res.status(200).json({ journal: response });
   } catch (err) {
     return res.status(500).json({ message: "Internal server error" });
   }
@@ -170,7 +175,7 @@ const GetAllJournals = async (req, res) => {
       const note = decrypt({ content: j.journalNote, iv: j.iv });
       return { ...j.toObject(), journalNote: note };
     });
-    res.status(200).json({ journals:decrypted });
+    res.status(200).json({ journals: decrypted });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
