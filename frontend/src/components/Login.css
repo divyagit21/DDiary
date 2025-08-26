@@ -1,0 +1,82 @@
+p {
+    color: var(--font-text);
+}
+
+input {
+    background-color: var(--secondary-color);
+    color: var(--font-text);
+    border: none;
+    font-weight: bold;
+}
+
+.login {
+    color: var(--font-text);
+    border: 2px solid var(--font-text);
+    width: 400px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-heading-login {
+    color: grey;
+    font-size: 15px;
+    display: flex;
+    justify-content: left;
+    padding-left: 50px;
+}
+
+.heading-login {
+    font-weight: bold;
+    font-size: 28px;
+    display: flex;
+    justify-content: left;
+    padding-left: 50px;
+    margin-bottom: 12px;
+}
+
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-box {
+    padding: 10px;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.email-input,
+.password-input,
+.name-input {
+    margin-bottom: 20px;
+}
+
+.remember-box {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.signup-button,
+.login-button {
+    background-color: var(--button-color);
+    color: var(--bg-parchment);
+    width: 75%;
+    border: none;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.5rem;
+    font-family: 'January', sans-serif;
+}
+
+.have-account {
+    cursor: pointer;
+}

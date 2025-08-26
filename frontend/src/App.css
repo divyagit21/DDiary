@@ -1,0 +1,74 @@
+body {
+  background-image: url('./assests/bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  font-family: 'Cedarville Cursive', cursive;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@font-face {
+  font-family: 'January';
+  src: url('./fonts/January.ttf')
+}
+
+:root {
+  --text: #7e5f40;
+  --bg-parchment: #f5e6c8;
+  --secondary-color: #d6b98c;
+  --button-border: #5a4432;
+  --font-text: #4b3621;
+  --text-light: #7a6651;
+  --accent-lavender: #8c6fc3;
+  --button-color: #7b8b58;
+  --flower-white: #fdfaf5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

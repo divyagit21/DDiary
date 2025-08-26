@@ -1,0 +1,55 @@
+ .navbar {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     width: 100%;
+     position:sticky;
+     top:0;
+ }
+
+ button {
+     background: none;
+     border: none;
+ }
+
+ .dashboard-page {
+     font-family: 'Cedarville Cursive', cursive;
+     padding: 1rem;
+     color: var(--text);
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+
+ h1 {
+     font-size: 2.2rem;
+     margin-bottom: 2rem;
+     color: var(--secondary-text);
+ }
+
+ .emotion-charts {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     gap: 1.5rem;
+     color: var(--secondary-text);
+     width: 100%;
+     max-width: 920px;
+ }
+
+ .emotion-chart {
+     width: 250px;
+     padding: 1rem;
+     border-radius: 10px;
+     text-align: center;
+ }
+
+ .emotion-chart h3 {
+     margin-bottom: 0.5rem;
+ }
+
+@media (max-width: 600px) {
+    .navbar {
+        margin-left: -40px;
+    }
+}
