@@ -1,4 +1,4 @@
-import { lazy,Suspense, useState, useRef, useEffect } from "react";
+import { lazy, Suspense, useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './Journal.css'
@@ -18,6 +18,8 @@ const Journal = ({ editEntryId }) => {
   const [loading, setLoading] = useState(true);
   const [journalExists, setJournalExists] = useState(false);
   const [moodExists, setMoodExists] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (!editEntryId) {
@@ -42,7 +44,7 @@ const Journal = ({ editEntryId }) => {
   }, [editEntryId]);
 
   useEffect(() => {
-    if (editEntryId) return; 
+    if (editEntryId) return;
 
     const today = new Date();
     const formattedDate = formatDate(today);
@@ -75,7 +77,7 @@ const Journal = ({ editEntryId }) => {
       const encodedDate = encodeURIComponent(dateToCheck);
       const res = await API.get(`/api/moodTracker/getMoodByDate/${encodedDate}`);
       if (res.status === 200 && res.data.mood) {
-        setAnalyzed(res.data.exists ?? true); 
+        setAnalyzed(res.data.exists ?? true);
       } else {
         setAnalyzed(false);
       }
@@ -112,16 +114,19 @@ const Journal = ({ editEntryId }) => {
       showAlert("Journal for today exists. Try editing it instead.");
       return;
     }
-
+    setIsAdding(true);
     try {
       await API.post(
         "/api/journal/addJournal",
         { title, date, journalNote: entry, analyzed },
-        
+
       );
       navigate("/history");
     } catch {
       showAlert("Failed to add journal entry.");
+    }
+    finally {
+      setIsAdding(false);
     }
   };
 
@@ -131,8 +136,8 @@ const Journal = ({ editEntryId }) => {
       return;
     }
 
-    if (!editEntryId) return; 
-
+    if (!editEntryId) return;
+    setIsSaving(true);
     try {
       await API.put(
         `/api/journal/updateJournal/${editEntryId}`,
@@ -142,6 +147,8 @@ const Journal = ({ editEntryId }) => {
       navigate("/history");
     } catch {
       showAlert("Failed to save.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -192,16 +199,16 @@ const Journal = ({ editEntryId }) => {
 
         <div className="journal-footer">
           {editEntryId ? (
-            <button onClick={handleSave} className="journal-analyze" disabled={isAnalyzing}>
-              Save
+            <button onClick={handleSave} className="journal-analyze" disabled={isSaving}>
+              {isSaving ? "Saving..." : "Save"}
             </button>
           ) : (
             <>
-              <button onClick={() => navigate('/history')} className="journal-analyze" disabled={isAnalyzing}>
+              <button onClick={() => navigate('/history')} className="journal-analyze"   >
                 Journal History
               </button>
-              <button onClick={handleAdd} className="journal-analyze" disabled={isAnalyzing}>
-                Add
+              <button onClick={handleAdd} className="journal-analyze" disabled={isAdding}>
+                {isAdding ? "Adding..." : "Add"}
               </button>
             </>
           )}

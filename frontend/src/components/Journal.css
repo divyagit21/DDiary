@@ -95,6 +95,10 @@ button {
   cursor: pointer;
 }
 
+.journal-analyze:hover {
+     opacity: 0.8;
+ }
+
 .journal-entry::-webkit-scrollbar {
   width: 12px;
 }
