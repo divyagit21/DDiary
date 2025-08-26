@@ -1,4 +1,4 @@
-import React, { lazy,Suspense, useState } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from './AuthContext';
@@ -54,7 +54,7 @@ const Home = () => {
                     <button className='menu-box' onClick={handleLogout}><div className='menu-box'>Logout</div></button>
                 </div>
                 <div className='design-layout'>
-                    <img className='design' src='/assets/background1.png' alt="Design" />
+                    <img className='design' draggable="false" src='/assets/background1.png' alt="Design" />
                 </div>
             </div>
         </>
