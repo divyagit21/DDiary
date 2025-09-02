@@ -5,9 +5,10 @@ import MoodTrackerCard from "./MoodTrackerCard";
 import { useNavigate } from "react-router-dom";
 import './TrackerHistory.css';
 import API from '../api'
-
-const CustomAlert = lazy(() => import('./CustomAlert'));
-const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
+import ConfirmationAlert from './ConfirmationAlert';
+import CustomAlert from './CustomAlert';
+// const CustomAlert = lazy(() => import('./CustomAlert'));
+// const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
 
 const TrackerHistory = ({ onEditMood }) => {
     const { user } = useAuth();
@@ -94,7 +95,7 @@ const TrackerHistory = ({ onEditMood }) => {
 
     return (
         <>
-            <Suspense fallback={<div>Loading...</div>}>
+{/*             <Suspense fallback={<div>Loading...</div>}> */}
                 {isOpen && (
                     <ConfirmationAlert
                         isOpen={isOpen}
@@ -108,7 +109,7 @@ const TrackerHistory = ({ onEditMood }) => {
                     />
                 )}
                 {msg && <CustomAlert message={msg} onClose={() => setMsg("")} />}
-            </Suspense>
+{/*             </Suspense> */}
 
             <div className="tracker-history-page">
                 <div className="navbar">
