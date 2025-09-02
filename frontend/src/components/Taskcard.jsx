@@ -2,8 +2,8 @@ import React, { lazy,Suspense, useState, useEffect } from 'react';
 import axios from 'axios';
 import './TaskCard.css'
 import API from '../api'
-
-const CustomAlert = lazy(() => import('./CustomAlert'));
+import CustomAlert from './CustomAlert';
+// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const Taskcard = ({ task, handleDeleteTask }) => {
   const [subtasks, setSubtasks] = useState(task.tasksList || []);
@@ -68,9 +68,9 @@ const Taskcard = ({ task, handleDeleteTask }) => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+{/*       <Suspense fallback={<div>Loading...</div>}> */}
         {alertMsg && <CustomAlert message={alertMsg} onClose={() => setAlertMsg('')} />}
-      </Suspense>
+{/*       </Suspense> */}
       <div className='task-card' >
         <div className='taskcard-header'>
           <div className='task-title'>{task.title}</div>
