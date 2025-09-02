@@ -4,8 +4,8 @@ import axios from "axios";
 import { useAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 import API from '../api'
-
-const CustomAlert = lazy(() => import('./CustomAlert'));
+import CustomAlert from './CustomAlert';
+// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const formatDate = (rawDate) => {
     const d = new Date(rawDate);
@@ -158,9 +158,9 @@ const MoodTracker = ({ editMoodId, onSaveComplete }) => {
 
     return (
         <>
-         <Suspense fallback={<div>Loading...</div>}>
+{/*          <Suspense fallback={<div>Loading...</div>}> */}
             {msg && <CustomAlert message={msg} onClose={() => setMsg('')} />}
-         </Suspense>
+{/*          </Suspense> */}
             <div className="mood-tracker-page">
                 <div className="navbar">
                     <button onClick={() => navigate('/home')}>
