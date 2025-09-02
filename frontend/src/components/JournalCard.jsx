@@ -2,7 +2,6 @@ import React, { lazy,Suspense, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import './JournalCard.css'
 import CustomAlert from './CustomAlert';
-// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const JournalCard = ({ id, title, date, entry, analyzed, onEdit, onDelete }) => {
   const [msg, setMsg] = useState('');
@@ -13,9 +12,7 @@ const JournalCard = ({ id, title, date, entry, analyzed, onEdit, onDelete }) => 
 
   return (
     <>
-{/*       <Suspense fallback={<div>Loading...</div>}> */}
         {msg && <CustomAlert message={msg} onClose={() => setMsg('')} />}
-{/*       </Suspense> */}
       <div className="journal-card">
         {title && <h3 className="card-title">{title}</h3>}
         <p className="card-date">{date}</p>
