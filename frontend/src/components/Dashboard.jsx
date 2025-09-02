@@ -7,7 +7,6 @@ import { useAuth } from "./AuthContext";
 import './Dashboard.css'
 import API from '../api'
 import CustomAlert from "./CustomAlert";
-// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
