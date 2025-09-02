@@ -3,8 +3,9 @@ import { Link, Navigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from './AuthContext';
 import './Home.css'
+import ConfirmationAlert from './ConfirmationAlert';
 
-const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
+// const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
 const Home = () => {
     const navigate = useNavigate();
     const [logoutClicked, setLogoutClicked] = useState(false);
@@ -22,7 +23,7 @@ const Home = () => {
     }
     return (
         <>
-            <Suspense fallback={<div>Loading...</div>}>
+{/*             <Suspense fallback={<div>Loading...</div>}> */}
                 {isOpen && (
                     <ConfirmationAlert
                         isOpen={isOpen}
@@ -32,7 +33,7 @@ const Home = () => {
                         type="Logout"
                     />
                 )}
-            </Suspense>
+{/*             </Suspense> */}
             <div className='container'>
                 <div className='main-heading'>
                     <div>Welcome to your world—where</div>
