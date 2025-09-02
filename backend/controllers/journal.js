@@ -19,7 +19,6 @@ const updateAnalysis = async (req, res) => {
       return res.status(403).json({ message: 'Unauthorized access.' });
     }
     const updatedAnalyze = analyzed
-    console.log(updatedAnalyze + "updated got")
     const updatedJournal = await Journal.findByIdAndUpdate(
       journalId,
       {
@@ -54,7 +53,6 @@ const checkToday = async (req, res) => {
     }
 
     const existing = await Journal.findOne({ user: req.user._id, date: formattedDate });
-    console.log(existing + " existing");
     if (existing) {
       return res.status(200).json({ exists: true, journal: existing });
     } else {
@@ -62,7 +60,6 @@ const checkToday = async (req, res) => {
     }
 
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Internal server error.", error: error.message });
   }
 };
