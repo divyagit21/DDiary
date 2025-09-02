@@ -7,8 +7,6 @@ import './Tasks.css'
 import API from '../api'
 import ConfirmationAlert from './ConfirmationAlert';
 import CustomAlert from './CustomAlert';
-// const CustomAlert = lazy(() => import('./CustomAlert'));
-// const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
 
 const Tasks = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,9 +49,10 @@ const Tasks = () => {
         const updatedTasks = prev.filter(task => task._id !== deleteId);
         return updatedTasks;
       });
+        showAlert("Task deleted successfully!");
     }
     catch (err) {
-
+       showAlert("Failed to delete Task. Please try again later.");
     }
     finally {
       setDeleteId(null);
@@ -100,12 +99,10 @@ const Tasks = () => {
 
   return (
     <>
-{/*       <Suspense fallback={<div>Loading...</div>}> */}
         {alertMsg && <CustomAlert message={alertMsg} onClose={() => setAlertMsg('')} />}
         {isOpen &&
           <ConfirmationAlert isOpen={isOpen} onClose={() => { setIsOpen(false); setDeleteId(null) }} onConfirm={confirmDelete} message={"Are you sure you want to delete this Task?"} type={"Delete"} />
         }
-{/*       </Suspense> */}
       <div className='task-page'>
         <div className='navbar'>
           <div><button onClick={() => navigate('/home')}>
