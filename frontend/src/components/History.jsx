@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from "./AuthContext";
 import './History.css'
 import API from '../api'
-
-const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
-const CustomAlert = lazy(() => import('./CustomAlert'));
+import ConfirmationAlert from './ConfirmationAlert';
+import CustomAlert from './CustomAlert';
+// const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
+// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const History = ({ onEditEntry }) => {
   const [entries, setEntries] = useState([]);
@@ -63,10 +64,10 @@ const History = ({ onEditEntry }) => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+{/*       <Suspense fallback={<div>Loading...</div>}> */}
         {isOpen && <ConfirmationAlert isOpen={isOpen} onClose={() => { setIsOpen(false); setDeleteId(null) }} onConfirm={confirmDelete} message={"Are you sure you want to delete this journal?"} type={"Delete"} />}
         {msg && <CustomAlert message={msg} onClose={() => setMsg('')} />}
-      </Suspense>
+{/*       </Suspense> */}
       <div className="history-page">
         <div className='navbar'>
           <div><button onClick={() => navigate('/home')}>
