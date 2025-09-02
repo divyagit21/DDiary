@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import './Signin.css'
 import API from '../api'
-
-const CustomAlert = lazy(() => import('./CustomAlert'));
+import CustomAlert from './CustomAlert';
+// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const Signin = () => {
   const [name, setName] = useState('');
@@ -66,9 +66,9 @@ const Signin = () => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+{/*       <Suspense fallback={<div>Loading...</div>}> */}
         {msg && <CustomAlert message={msg} onClose={() => setMsg('')} />}
-      </Suspense>
+{/*       </Suspense> */}
       <div className="login-container">
         <div className="login">
           <div className="sub-heading-login">
