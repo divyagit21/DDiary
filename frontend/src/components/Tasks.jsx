@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from './AuthContext';
 import './Tasks.css'
 import API from '../api'
-
-const CustomAlert = lazy(() => import('./CustomAlert'));
-const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
+import ConfirmationAlert from './ConfirmationAlert';
+import CustomAlert from './CustomAlert';
+// const CustomAlert = lazy(() => import('./CustomAlert'));
+// const ConfirmationAlert = lazy(() => import('./ConfirmationAlert'));
 
 const Tasks = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,12 +100,12 @@ const Tasks = () => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+{/*       <Suspense fallback={<div>Loading...</div>}> */}
         {alertMsg && <CustomAlert message={alertMsg} onClose={() => setAlertMsg('')} />}
         {isOpen &&
           <ConfirmationAlert isOpen={isOpen} onClose={() => { setIsOpen(false); setDeleteId(null) }} onConfirm={confirmDelete} message={"Are you sure you want to delete this Task?"} type={"Delete"} />
         }
-      </Suspense>
+{/*       </Suspense> */}
       <div className='task-page'>
         <div className='navbar'>
           <div><button onClick={() => navigate('/home')}>
