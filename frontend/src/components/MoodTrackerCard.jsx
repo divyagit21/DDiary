@@ -1,7 +1,6 @@
 import React, { lazy,Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomAlert from './CustomAlert';
-// const CustomAlert = lazy(() => import('./CustomAlert'));
 const MoodTrackerCard = ({ moodId, date, responses, handleDelete, onMoodUpdated }) => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
@@ -12,9 +11,7 @@ const MoodTrackerCard = ({ moodId, date, responses, handleDelete, onMoodUpdated 
   const hiddenCount = nonZeroResponses.length - visibleResponses.length;
   return (
     <>
-{/*       <Suspense fallback={<div>Loading...</div>}> */}
         {msg && <CustomAlert message={msg} onClose={() => setMsg('')} />}
-{/*       </Suspense> */}
       <div className="mood-card">
         <div className="mood-date">{date}</div>
         <div className="mood-responses">
