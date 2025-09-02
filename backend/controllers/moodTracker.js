@@ -98,7 +98,6 @@ const deleteMoodEntry = async (req, res) => {
 const getMoodById = async (req, res) => {
   try {
     const { moodId } = req.params; 
-    console.log(moodId);
     const userId = req.user._id;
 
     if (!moodId) return res.status(400).json({ message: "Mood ID is required." });
@@ -136,7 +135,6 @@ const getMoodByDate = async (req, res) => {
     if (!formattedDate) {
       return res.status(400).json({ message: "Date is required." });
     }
-    console.log(formattedDate);
     const moodEntry = await MoodTracker.findOne({ userId, date:formattedDate });
 
     if (moodEntry) {
