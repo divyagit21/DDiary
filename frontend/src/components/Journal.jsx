@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import './Journal.css'
 import API from '../api'
 import CustomAlert from './CustomAlert';
-// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const Journal = ({ editEntryId }) => {
   const navigate = useNavigate();
@@ -154,9 +153,7 @@ const Journal = ({ editEntryId }) => {
 
   return (
     <>
-{/*       <Suspense fallback={<div>Loading...</div>}> */}
         {alertMsg && <CustomAlert message={alertMsg} onClose={() => setAlertMsg("")} />}
-{/*       </Suspense> */}
       <div className="journal-page">
         <div className="navbar">
           <div>
