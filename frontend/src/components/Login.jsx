@@ -4,8 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import './Login.css'
 import API from '../api'
-
-const CustomAlert = lazy(() => import('./CustomAlert'));
+import CustomAlert from './CustomAlert';
+// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -53,9 +53,9 @@ const Login = () => {
 
     return (
         <>
-            <Suspense fallback={<div>Loading...</div>}>
+{/*             <Suspense fallback={<div>Loading...</div>}> */}
                 {msg && <CustomAlert message={msg} onClose={() => setMsg('')} />}
-            </Suspense>
+{/*             </Suspense> */}
             <div className="login-container">
                 <div className="login">
                     <div className="sub-heading-login">
