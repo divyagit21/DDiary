@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from "./AuthContext";
 import './Dashboard.css'
 import API from '../api'
-
-const CustomAlert = lazy(() => import('./CustomAlert'));
+import CustomAlert from "./CustomAlert";
+// const CustomAlert = lazy(() => import('./CustomAlert'));
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -83,9 +83,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
         {msg && <CustomAlert message={msg} onClose={() => setMsg('')} />}
-      </Suspense>
       <div className="dashboard-page">
         <div className='navbar'>
           <div>
